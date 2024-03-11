@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quotes</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="circle">
+            <div class="c1 c"></div>
+            <div class="c2 c" ></div>
+            <div class="c3 c"></div>
+        </div>
+        <div class="main">
+            <div id="qutes"></div>
+            <div class="ath">
+                <i>Author <div id="author"></div></i>
+            </div>
+            <button id="btn">Change</button>
+        </div>
+    </div>
+
+    <script>
+        let text = document.getElementById("qutes");
+        let author = document.getElementById("author");
+        let btn = document.getElementById('btn');
+        const newQuotes = (qutes) => {
+            let num = Math.floor(Math.random() * 10);
+            // console.log(qutes[num].text);
+            text.innerText = `${qutes[num].text}`
+            author.innerText = `${qutes[num].author}`
+
+            // console.log(num);
+        }
+
+        const getQuotes = async () => {
+            const api = "https://type.fit/api/quotes";
+
+            try {
+                const data = await fetch(api);
+                const qutes = await data.json();
+                // console.log(qutes[0].text);
+                // console.log(qutes[0].author);
+                newQuotes(qutes);
+
+            } catch (error) {
+                console.log(error)
+            }
+
+
+
+        }
+        getQuotes();
+        btn.addEventListener('click',getQuotes);
+
+    </script>
+</body>
+
+</html>
